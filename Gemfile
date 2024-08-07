@@ -63,3 +63,7 @@ group :development do
   # gem "spring"
 end
 
+
+gem "neighbor", "~> 0.4.0"
+gem "ruby-openai", "~> 7.1"
+gem "faraday", "~> 2.10"
