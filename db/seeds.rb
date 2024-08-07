@@ -1,9 +1,30 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+# Clear existing incidents
+Incident.destroy_all
+
+# Create sample incidents
+incidents = [
+  {
+    name: 'Database Performance Issue 1',
+    description: 'Users reported slow response times when querying the database. Investigation showed high CPU usage on the database server.',
+    resolution: 'Optimized slow-running queries and added appropriate indexes to improve performance.'
+  },
+  {
+    name: 'Network Outage',
+    description: 'All services became unreachable due to a network failure. Investigation showed a core router had failed.',
+    resolution: 'Replaced the faulty router and restored network connectivity. Implemented redundant routing to prevent future single points of failure.'
+  },
+  {
+    name: 'non fit',
+    description: 'I do not fit to anything',
+    resolution: 'Totally obsolete and should not be nearest neighbor to anything'
+  }
+]
+
+# Create incidents, generate summaries and embeddings
+incidents.each do |incident_data|
+  incident = Incident.create!(incident_data)
+  incident.process_incident
+  puts "Processed incident: #{incident.name}"
+end
+
+puts 'Seed data created successfully!'
